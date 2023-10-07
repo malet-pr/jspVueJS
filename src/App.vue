@@ -1,10 +1,17 @@
 <template>
-  <div></div>
+  <div>
+    <FilterAcordion />
+  </div>
+  <div>
+    <TableAccordion />
+  </div>
 </template>
 
 <script setup>
-import { GetAllSources, GetTechAutocomplete} from '@/utils/fakerApi';
 import { ref, onMounted } from 'vue';
+import { GetAllSources, GetTechAutocomplete} from '@/utils/fakerApi';
+import  FilterAcordion  from '@/components/filterComponents/FilterAccordion.vue';
+import TableAccordion from './components/tableComponents/TableAccordion.vue';
 
 const sources = ref([]);
 const techs = ref([]);
@@ -17,7 +24,6 @@ const prueba = () => {
     techs.value = resp;
   })
 } 
-
 onMounted(prueba);
 </script>
 
