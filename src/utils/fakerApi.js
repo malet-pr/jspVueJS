@@ -26,3 +26,14 @@ export const GetAllSources = async () => {
     }    
 } 
 
+export const GetByFilters = async (request) => {
+    try {
+        const {data:response} = await axios.post(BASE_URL_QUOTE + 'get-by-filters', request);
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+
+  }
+
+ 

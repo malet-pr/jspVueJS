@@ -21,7 +21,7 @@
           </div>
           </AccordionTab>
           <AccordionTab header="DATA TABLE">
-
+            <Table />
           </AccordionTab>
       </Accordion>
   </div>
@@ -38,7 +38,7 @@ import DateFilterTo from './components/filterComponents/DateFilterTo.vue';
 import TextFilter from './components/filterComponents/TextFilter.vue';
 import CleanButton from './components/filterComponents/CleanButton.vue';
 import SendButton from './components/filterComponents/SendButton.vue';
-
+import Table from './components/tableComponents/Table.vue';
 
 </script>
 

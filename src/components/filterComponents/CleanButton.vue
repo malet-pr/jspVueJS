@@ -10,7 +10,7 @@ import useFakerStore from '@/stores/fakerStore';
 
 const store = useFakerStore();
 const onClick = () => {
-    store.$reset()
+    store.$resetFilters();
 }
 
 </script>

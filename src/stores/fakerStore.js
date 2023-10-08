@@ -1,23 +1,41 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
+import { GetByFilters } from '@/utils/fakerApi';
 
 const useFakerStore = defineStore('fakerStore', {
   state: () => ({
-      techSelected: ref(),
+      techSelected: ref(""),
       sourcesSelected: ref([]),
-      wordInQuote: ref(),
-      dateFrom: ref(),
-      dateTo: ref()
+      wordInQuote: ref(""),
+      dateFrom: ref(""),
+      dateTo: ref(""),
+      data: reactive([])
     }),
   actions: {
-    $reset() {
+    $resetFilters() {
       this.techSelected = "";
       this.sourcesSelected = [];
       this.wordInQuote = "";
-      this.dateFrom = undefined;
-      this.dateTo = undefined;
-    }
-
+      this.dateFrom = "";
+      this.dateTo = "";
+    },
+    $resetData() {
+      this.data = []
+    },
+    async $fetchData(){
+      let request = {
+        "techNum" : this.techSelected,
+        "sources" : this.sourcesSelected,
+        "text" : this.wordInQuote,
+        "dateFrom" : this.dateFrom,
+        "dateTo" : this.dateTo
+      }
+      try{
+        this.data = await GetByFilters(request);
+      }catch (err){
+        console.log(err);
+      }
+    },
   },
   getters: {
     
