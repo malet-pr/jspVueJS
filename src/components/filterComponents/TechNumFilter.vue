@@ -1,20 +1,21 @@
 <template>
     <div class="flex flex-column px-2">
         <label for="ac">Tech Number</label>
-        <AutoComplete v-model="tech" @item-select="techSelected" inputId="ac" :suggestions="items" @complete="search" />
+        <AutoComplete v-model="tech" @item-select="selected" inputId="ac" :suggestions="items" @complete="search" />
     </div>
 </template>
 
 <script setup>
 
 import { ref } from "vue";
+import useFakerStore from '@/stores/fakerStore';
+import { storeToRefs } from 'pinia';
 import AutoComplete from 'primevue/autocomplete';
 import { GetTechAutocomplete } from '@/utils/fakerApi';
-import useFakerStore from '@/stores/fakerStore';
 
-const tech = ref("");
+const {techSelected} = storeToRefs(useFakerStore());
+const tech = techSelected;
 const items = ref();
-const store = useFakerStore();
 
 const search = () => {
     GetTechAutocomplete(tech.value)
@@ -23,8 +24,9 @@ const search = () => {
     })
 }
 
-const techSelected = (event) => {
-    store.techSelected = event.value;
+const selected = (event) => {
+    techSelected.value = event.value;
+    tech.value = event.value;
 }
 
 </script>

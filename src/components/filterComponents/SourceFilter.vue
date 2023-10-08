@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column px-4">
+    <div class="flex flex-column px-2">
         <label for="ms">Source</label>
         <MultiSelect v-model="sources" @change="onChange($event)" inputId="ms" :options="options" filter
         :maxSelectedLabels="3" class="w-full md:w-20rem" />
@@ -9,17 +9,18 @@
 <script setup>
 import MultiSelect from 'primevue/multiselect';
 import { ref } from "vue";
-import { GetAllSources } from '@/utils/fakerApi';
+import { storeToRefs } from 'pinia';
 import useFakerStore from '@/stores/fakerStore';
+import { GetAllSources } from '@/utils/fakerApi';
 
-const sources = ref([]);
+const {sourcesSelected} = storeToRefs(useFakerStore());
+const sources = sourcesSelected;
 const options = ref([]);
-const store = useFakerStore();
 
 GetAllSources().then(function(resp){options.value = resp;})
 
 const onChange = (event) => {
-    store.sourcesSelected =event.value;
+    sourcesSelected.value = event.value;
 }
 
 </script>
