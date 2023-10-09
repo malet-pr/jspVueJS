@@ -7,12 +7,16 @@
 <script setup>
 import Button from 'primevue/button';
 import useFakerStore from '@/stores/fakerStore';
+import useEmitter from '@/utils/emitter';
 
 const store = useFakerStore();
+const emitter = useEmitter();
 
 const onClick = () => {
+    store.$resetData(); 
     store.$fetchData();
-
+    emitter.emit('reloadTable', true);  // esto no funciona
+    emitter.emit('active',[1]);
 }
 
 </script>

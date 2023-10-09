@@ -9,7 +9,8 @@ const useFakerStore = defineStore('fakerStore', {
       wordInQuote: ref(""),
       dateFrom: ref(""),
       dateTo: ref(""),
-      data: reactive([])
+      data: reactive([]),
+      reloadTable: false
     }),
   actions: {
     $resetFilters() {

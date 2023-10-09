@@ -1,21 +1,20 @@
 <template>
   <div class="card">
-    <DataTable sortMode="multiple" removableSort dataKey="id" :value="tableData" paginator :rows="15" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem"
+    <DataTable sortMode="multiple" removableSort dataKey="id" :value="tableData" paginator :rows="15" :rowsPerPageOptions="[5, 10, 15, 30, 50]" tableStyle="min-width: 50rem"
             paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
             currentPageReportTemplate="{first} to {last} of {totalRecords}">
         <template #paginatorstart>
-            <Button type="button" icon="pi pi-refresh" text />
+            <Button type="button" icon="pi pi-refresh" text @click="reloadData"/>
         </template>
         <template #paginatorend>
             <Button type="button" icon="pi pi-download" text />
         </template>
-        <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-        <Column sortable header="File #">
+        <Column sortable field="techNumber" header="File #"></Column>
+        <Column sortable header="Name">
           <template #body="slotProps">
-            `{{ slotProps.data.lastName }}, {{ slotProps.data.firstName }}`
+            {{ slotProps.data.lastName }}, {{ slotProps.data.firstName }}
           </template>
         </Column>
-        <Column sortable field="lastName" header="Name"></Column>
         <Column sortable field="source" header="Source"></Column>
         <Column sortable field="dateRecorded" header="Date"></Column>
         <Column sortable field="text" header="Quote"></Column>
@@ -28,15 +27,27 @@
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
-//import Row from 'primevue/row';  
-import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
+import { ref, onMounted } from 'vue';
 import useFakerStore from '@/stores/fakerStore';
-//import { CustomerService } from '@/service/CustomerService';
-const {data} = storeToRefs(useFakerStore());
-const tableData = data;
+import useEmitter from '@/utils/emitter';
 
-onMounted(() => {});
+const store = useFakerStore();
+const tableData = ref([]);
+const emitter = useEmitter();
+
+const reloadData = () => {
+  tableData.value = store.data;
+}
+
+onMounted(() => {
+  emitter.on('reloadTable', value => {
+    if(value === true) { 
+      //tableData.value = store.data;
+      //console.log(tableData.value);
+      emitter.emit('reloadTable', false);
+    };
+  });
+});
 
 </script>
 
