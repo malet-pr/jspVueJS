@@ -10,7 +10,6 @@ const useFakerStore = defineStore('fakerStore', {
       dateFrom: ref(""),
       dateTo: ref(""),
       data: reactive([]),
-      reloadTable: false
     }),
   actions: {
     $resetFilters() {
