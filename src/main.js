@@ -1,5 +1,5 @@
 import "primeicons/primeicons.css";
-import "primevue/resources/themes/md-light-indigo/theme.css";
+import "primevue/resources/themes/bootstrap4-dark-purple/theme.css";
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
