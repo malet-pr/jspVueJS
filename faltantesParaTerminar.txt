@@ -1,0 +1,50 @@
+FALTA PARA ESTE PROYECTO:
+
+1) arreglar el filtro del desplegable (buscar el callback y arreglarlo)
+
+2) exportar a excel
+
+3) revisar look-and-feel a ver si puedo asimilarlo a FM
+
+
+PARA EXPORTAR A EXCEL
+POSIBILIDAD 1
+https://docs.sheetjs.com/docs/demos/frontend/vue
+https://docs.sheetjs.com/docs/getting-started/examples/export
+https://docs.sheetjs.com/docs/demos/grid/vtl/
+
+POSIBILIDAD 2
+https://www.npmjs.com/package/xlsx
+INSTALAR
+npm install xlsx
+IMPORTAR
+import * as XLSX from 'xlsx/xlsx.mjs';
+FUNCIONES Y CALLBACK
+onClick={exportExcel} 
+
+    const exportExcel = () => {
+        import('xlsx').then((xlsx) => {
+            const worksheet = xlsx.utils.json_to_sheet(products);
+            const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+            const excelBuffer = xlsx.write(workbook, {
+                bookType: 'xlsx',
+                type: 'array'
+            });
+
+            saveAsExcelFile(excelBuffer, 'products');
+        });
+    };
+
+    const saveAsExcelFile = (buffer, fileName) => {
+        import('file-saver').then((module) => {
+            if (module && module.default) {
+                let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+                let EXCEL_EXTENSION = '.xlsx';
+                const data = new Blob([buffer], {
+                    type: EXCEL_TYPE
+                });
+
+                module.default.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+            }
+        });
+    };

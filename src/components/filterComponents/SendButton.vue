@@ -12,9 +12,9 @@ import useEmitter from '@/utils/emitter';
 const store = useFakerStore();
 const emitter = useEmitter();
 
-const onClick = () => {
+const onClick = async () => {
     store.$resetData(); 
-    store.$fetchData();
+    await store.$fetchData();
     emitter.emit('reloadTable', true);  // esto no funciona
     emitter.emit('active',[1]);
 }

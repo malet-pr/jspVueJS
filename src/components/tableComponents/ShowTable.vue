@@ -42,8 +42,7 @@ const reloadData = () => {
 onMounted(() => {
   emitter.on('reloadTable', value => {
     if(value === true) { 
-      //tableData.value = store.data;
-      //console.log(tableData.value);
+      tableData.value = store.data;
       emitter.emit('reloadTable', false);
     };
   });
