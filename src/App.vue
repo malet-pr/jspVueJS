@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div  class="card" size="small">
       <Accordion :multiple="true" :activeIndex="active">
           <AccordionTab header="FILTERS">
           <div class="flex flex-column">
@@ -28,10 +28,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
-import "/node_modules/primeflex/primeflex.css";
+import useFakerStore from '@/stores/fakerStore';
 import TechNumFilter from './components/filterComponents/TechNumFilter.vue';
 import SourceFilter from './components/filterComponents/SourceFilter.vue';
 import DateFilterFrom from './components/filterComponents/DateFilterFrom.vue';
@@ -44,10 +44,16 @@ import useEmitter from '@/utils/emitter';
 
 const active = ref([0]);
 const emitter = useEmitter();
+const store = useFakerStore();
 
 onMounted(() => {
   emitter.on('active', val => active.value = val);
 });
+
+onUnmounted(() => {
+  store.$resetData();
+  store.$resetFilters();
+})
 
 </script>
 

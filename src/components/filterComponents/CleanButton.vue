@@ -16,6 +16,8 @@ const onClick = () => {
     store.$resetData(); 
     store.$resetFilters();
     emitter.emit('reloadTable', true);   
+    emitter.emit('dateFromSelected',false);
+    emitter.emit('active',[0]);
 }
 
 </script>

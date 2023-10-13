@@ -1,4 +1,5 @@
 import "primeicons/primeicons.css";
+import "/node_modules/primeflex/primeflex.css";
 import "primevue/resources/themes/bootstrap4-dark-purple/theme.css";
 //import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
 

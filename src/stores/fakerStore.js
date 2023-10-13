@@ -12,6 +12,9 @@ const useFakerStore = defineStore('fakerStore', {
       data: reactive([]),
     }),
   actions: {
+    $clearDateTo() {
+      this.dateTo = "";
+    },
     $resetFilters() {
       this.techSelected = "";
       this.sourcesSelected = [];

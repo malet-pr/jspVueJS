@@ -15,7 +15,7 @@ const emitter = useEmitter();
 const onClick = async () => {
     store.$resetData(); 
     await store.$fetchData();
-    emitter.emit('reloadTable', true);  // esto no funciona
+    emitter.emit('reloadTable', true);  
     emitter.emit('active',[1]);
 }
 
