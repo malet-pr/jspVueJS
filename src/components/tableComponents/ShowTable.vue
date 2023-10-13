@@ -16,9 +16,9 @@
           </template>
         </Column>
         <Column sortable field="source" header="Source"></Column>
-        <Column sortable field="dateRecorded" header="Date">
+        <Column sortable header="Date">
           <template #body="slotProps">
-            {{ dayjs(slotProps.dateRecorded).format('DD/MM/YYYY hh:mm')}}
+            {{ dayjs(slotProps.data.dateRecorded).format('DD/MM/YYYY  HH:mm:ss')}}
           </template>
         </Column>
         <Column sortable field="text" header="Quote"></Column>
@@ -40,6 +40,7 @@ import { utils, writeFileXLSX } from 'xlsx';
 const store = useFakerStore();
 const tableData = ref([]);
 const emitter = useEmitter();
+const hiddenColumns = ['techNumber'];
 
 const reloadData = () => {
   tableData.value = store.data;
@@ -55,10 +56,19 @@ onMounted(() => {
 });
 
 const exportExcel = () => {
+  /* hide column(s) */
+  const cleanData = tableData.value.map(row => {
+    return Object.fromEntries(
+      Object.entries(row).filter(([key]) => !hiddenColumns.includes(key))
+    );
+  });
+  /* Format date column(s) before exporting */
+  const formattedData = cleanData.map(row => ({
+    ...row,
+    dateRecorded: dayjs(row.dateRecorded).toDate(), 
+  }));
   /* generate worksheet from state */
-  const ws = utils.json_to_sheet(tableData.value, { skipHidden: true, cellDates: true });
-  /* export dates */
-  ws['!cols'] = dayjs(tableData.value.dateRecorded).toDate();   
+  const ws = utils.json_to_sheet(formattedData);
   /* create workbook and append worksheet */
   const wb = utils.book_new();
   utils.book_append_sheet(wb, ws, "Quotes");
