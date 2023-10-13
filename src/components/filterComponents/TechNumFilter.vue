@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-column px-2">
         <label for="ac">Tech Number</label>
-        <AutoComplete v-model="tech" @item-select="selected" inputId="ac" :suggestions="items" @complete="search" />
+        <AutoComplete v-model="tech" @item-select="selected" inputId="ac" :suggestions="items" 
+        @complete="search" size="small"/>
     </div>
 </template>
 

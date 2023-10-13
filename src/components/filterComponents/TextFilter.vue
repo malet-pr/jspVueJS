@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-column px-2">
         <label for="tx">{{ props.label }}</label>
-        <InputText v-model="value" type="text" id="tx" @keyup="captureInfo"/>
+        <InputText v-model="value" type="text" id="tx" @keyup="captureInfo" size="small"/>
     </div>
 </template>
 

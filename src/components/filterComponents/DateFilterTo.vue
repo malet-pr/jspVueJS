@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-column px-2">
         <label for="cal"> {{ props.label }} </label>
-        <Calendar id="cal" v-model="store.dateTo" dateFormat="dd/mm/yy" showIcon @date-select="dateSelected"/>
+        <Calendar id="cal" v-model="store.dateTo" dateFormat="dd/mm/yy" showIcon 
+        @date-select="dateSelected" size="small"/>
     </div>
 </template>
 

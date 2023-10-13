@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-column px-2">
         <label for="ms">Source</label>
-        <MultiSelect v-model="sources" @change="onChange($event)" inputId="ms" :options="options" filter
-        :maxSelectedLabels="3" class="w-full md:w-20rem" />
+        <MultiSelect v-model="sources" @change="onChange($event)" inputId="ms" :options="options" 
+        filter optionLabel="source" :maxSelectedLabels="3" class="w-full md:w-20rem" size="small"/>
     </div>
 </template>
 

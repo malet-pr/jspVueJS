@@ -15,7 +15,7 @@ const emitter = useEmitter();
 const onClick = () => {
     store.$resetData(); 
     store.$resetFilters();
-    emitter.emit('reloadTable', true);   // esto no funciona
+    emitter.emit('reloadTable', true);   
 }
 
 </script>
