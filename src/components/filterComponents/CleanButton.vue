@@ -18,6 +18,7 @@ const onClick = () => {
     emitter.emit('reloadTable', true);   
     emitter.emit('dateFromSelected',false);
     emitter.emit('active',[0]);
+    emitter.emit('showMessage',false);
 }
 
 </script>

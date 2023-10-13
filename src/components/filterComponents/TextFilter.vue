@@ -2,6 +2,7 @@
     <div class="flex flex-column px-2">
         <label for="tx">{{ props.label }}</label>
         <InputText v-model="value" type="text" id="tx" @keyup="captureInfo" :disabled="isDisabled" />
+        <p v-if="showMessage" class="red-message">At least on of these filters is required</p>
     </div>
 </template>
 
@@ -13,6 +14,7 @@ import InputText from 'primevue/inputtext';
 import useEmitter from '@/utils/emitter';
 
 const isDisabled = ref(false);
+const showMessage = ref(false);
 const wordSelected = ref(false);
 const emitter = useEmitter();
 const props = defineProps(['label']);
@@ -24,6 +26,7 @@ const captureInfo = (event) => {
     value.value = event.target.value;
     if(wordInQuote.value !== "" && wordInQuote.value !== undefined){
         wordSelected.value = true;
+        emitter.emit('showMessage',false);
     } else {
         wordSelected.value = false;
     }
@@ -35,6 +38,7 @@ onMounted(() => {
     emitter.on('dateFromSelected', val =>  isDisabled.value = val);
     emitter.on('techSelected', val =>  isDisabled.value = val);
     emitter.on('sourceSelected', val =>  isDisabled.value = val);
+    emitter.on('showMessage', val => showMessage.value = val);
 });
 
 
@@ -42,4 +46,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.red-message {
+  color: red;
+  font-weight: bold;
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
 </style>
