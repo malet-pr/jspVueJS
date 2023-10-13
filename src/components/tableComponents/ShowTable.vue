@@ -10,13 +10,13 @@
         <template #paginatorend>
         </template>
         <Column sortable field="techNumber" header="File #" hidden></Column>
-        <Column sortable header="Name">
+        <Column sortable field="lastName" header="Name">
           <template #body="slotProps">
             {{ slotProps.data.lastName }}, {{ slotProps.data.firstName }}
           </template>
         </Column>
         <Column sortable field="source" header="Source"></Column>
-        <Column sortable header="Date">
+        <Column sortable field="dateRecorded" header="Date">
           <template #body="slotProps">
             {{ dayjs(slotProps.data.dateRecorded).format('DD/MM/YYYY  HH:mm:ss')}}
           </template>
@@ -41,10 +41,6 @@ const store = useFakerStore();
 const tableData = ref([]);
 const emitter = useEmitter();
 const hiddenColumns = ['techNumber'];
-
-const reloadData = () => {
-  tableData.value = store.data;
-}
 
 onMounted(() => {
   emitter.on('reloadTable', value => {
