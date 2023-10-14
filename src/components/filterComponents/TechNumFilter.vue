@@ -3,7 +3,7 @@
         <label for="ac">Tech Number</label>
         <AutoComplete v-model="tech" inputId="ac" :suggestions="items" forceSelection 
         @complete="search" @change="handleChange" :disabled="isDisabled" />
-        <p v-if="showMessage" class="red-message">At least on of these filters is required</p>
+        <p v-if="showMessage" class="red-message">One of these filters is required</p>
     </div>
 </template>
 
@@ -51,8 +51,7 @@ onMounted(() => {
 <style scoped>
 .red-message {
   color: red;
-  font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.90rem;
   margin-top: 5px;
 }
 </style>

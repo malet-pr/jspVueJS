@@ -3,7 +3,7 @@
         <label for="ms">Source</label>
         <MultiSelect v-model="sources" @change="onChange($event)" inputId="ms" :options="options" 
         filter optionLabel="source" :maxSelectedLabels="3" class="w-full md:w-15rem" :disabled="isDisabled" />
-        <p v-if="showMessage" class="red-message">At least on of these filters is required</p>
+        <p v-if="showMessage" class="red-message">One of these filters is required</p>
     </div>
 </template>
 
@@ -46,8 +46,7 @@ onMounted(() => {
 <style scoped>
 .red-message {
   color: red;
-  font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.90rem;
   margin-top: 5px;
 }
 </style>
