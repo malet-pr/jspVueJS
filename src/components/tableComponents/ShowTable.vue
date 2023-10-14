@@ -21,7 +21,7 @@
             {{ dayjs(slotProps.data.dateRecorded).format('DD/MM/YYYY  HH:mm:ss')}}
           </template>
         </Column>
-        <Column sortable field="text" header="Quote"></Column>
+        <Column field="text" header="Quote"></Column>
     </DataTable>
   </div>
 </template>
