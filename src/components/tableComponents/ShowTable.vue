@@ -5,7 +5,7 @@
             paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
             currentPageReportTemplate="{first} to {last} of {totalRecords}">
         <template #paginatorstart>
-          <Button type="button" icon="pi pi-download" text @click="exportExcel()"/>
+          <Button type="button" text @click="exportExcel()" label="Export"/>
         </template>
         <template #paginatorend>
         </template>
@@ -40,7 +40,6 @@ import { utils, writeFileXLSX } from 'xlsx';
 const store = useFakerStore();
 const tableData = ref([]);
 const emitter = useEmitter();
-const hiddenColumns = ['techNumber'];
 
 onMounted(() => {
   emitter.on('reloadTable', value => {
@@ -52,19 +51,23 @@ onMounted(() => {
 });
 
 const exportExcel = () => {
-  /* hide column(s) */
-  const cleanData = tableData.value.map(row => {
+  /* Format date column(s) before exporting */
+  const formattedData = tableData.value.map(row => ({
+    "Tech ID": row.techNumber,
+    "Full Name": `${row.firstName} ${row.lastName}`,
+    Author: row.source,
+    Date: dayjs(row.dateRecorded).toDate(), 
+    Quote: row.text,
+  }));
+  const hiddenColumns = ['firstName','lastName'];
+    /* hide column(s) */
+    const cleanData = formattedData.map(row => {
     return Object.fromEntries(
       Object.entries(row).filter(([key]) => !hiddenColumns.includes(key))
     );
   });
-  /* Format date column(s) before exporting */
-  const formattedData = cleanData.map(row => ({
-    ...row,
-    dateRecorded: dayjs(row.dateRecorded).toDate(), 
-  }));
   /* generate worksheet from state */
-  const ws = utils.json_to_sheet(formattedData);
+  const ws = utils.json_to_sheet(cleanData);
   /* create workbook and append worksheet */
   const wb = utils.book_new();
   utils.book_append_sheet(wb, ws, "Quotes");
