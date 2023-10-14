@@ -59,9 +59,9 @@ const exportExcel = () => {
     Date: dayjs(row.dateRecorded).toDate(), 
     Quote: row.text,
   }));
+  /* hide column(s) */
   const hiddenColumns = ['firstName','lastName'];
-    /* hide column(s) */
-    const cleanData = formattedData.map(row => {
+  const cleanData = formattedData.map(row => {
     return Object.fromEntries(
       Object.entries(row).filter(([key]) => !hiddenColumns.includes(key))
     );

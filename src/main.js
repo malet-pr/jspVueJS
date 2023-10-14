@@ -1,5 +1,6 @@
 import "/node_modules/primeflex/primeflex.css";
-import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
+//import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
+import '@/assets/theme.css';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
